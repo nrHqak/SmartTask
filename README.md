@@ -42,3 +42,6 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 
 
 > Примечание: проект переведён на классический формат `.csproj` для .NET Framework 4.8, чтобы избежать зависимости от `project.assets.json` и ошибки `NETSDK1004` при сборке через MSBuild/Visual Studio без отдельного restore.
+
+
+Если Visual Studio пишет, что не найден `bin\Debug\net48\SmartTaskDistributor.exe`, выполните **Rebuild Solution**: путь вывода уже настроен на `bin\Debug\net48\`.
