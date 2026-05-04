@@ -45,3 +45,5 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 
 
 Если Visual Studio пишет, что не найден `bin\Debug\net48\SmartTaskDistributor.exe`, выполните **Rebuild Solution**: путь вывода уже настроен на `bin\Debug\net48\`.
+
+Если ошибка запуска сохраняется: в Solution Explorer нажмите правой кнопкой по `SmartTaskDistributor` → **Set as Startup Project**, затем **Clean Solution** и **Rebuild Solution**.
