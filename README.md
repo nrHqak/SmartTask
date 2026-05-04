@@ -1,6 +1,6 @@
 # Smart Task Distributor
 
-Smart Task Distributor — это WinForms-приложение (C#/.NET Framework 4.7) для умного управления задачами.
+Smart Task Distributor — это WinForms-приложение (C#/.NET Framework 4.8) для умного управления задачами.
 
 ## Возможности
 - Добавление задач с параметрами: название, длительность, сложность, приоритет.
@@ -21,7 +21,7 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 
 ## Стек
 - C#
-- .NET Framework 4.7
+- .NET Framework 4.8
 - Windows Forms
 
 ## Запуск
