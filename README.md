@@ -26,11 +26,16 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 
 ## Запуск
 1. Откройте папку проекта в Visual Studio 2019/2022.
-2. Нажмите **Restore NuGet Packages** (или соберите проект, Visual Studio сделает restore автоматически).
-3. Запустите проект (`F5`).
+2. Обязательно выполните восстановление пакетов: `dotnet restore` (или **Restore NuGet Packages** в Visual Studio).
+3. Соберите проект: `dotnet build` (или Build в Visual Studio).
+4. Запустите проект (`F5`).
 
 ## Структура
 - `TaskItem.cs` — модель задачи и расчет веса.
 - `TaskManager.cs` — бизнес-логика управления задачами.
 - `MainForm.cs` — пользовательский интерфейс и обработка событий.
 - `RoundedButton.cs` — кастомная кнопка со скруглением и hover-эффектом.
+
+
+## Быстрый запуск в терминале Windows
+- Запустите `build.bat`, он выполнит `restore` и затем `build` в правильном порядке.
