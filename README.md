@@ -39,3 +39,6 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 
 ## Быстрый запуск в терминале Windows
 - Запустите `build.bat`, он выполнит `restore` и затем `build` в правильном порядке.
+
+
+> Примечание: проект переведён на классический формат `.csproj` для .NET Framework 4.8, чтобы избежать зависимости от `project.assets.json` и ошибки `NETSDK1004` при сборке через MSBuild/Visual Studio без отдельного restore.
