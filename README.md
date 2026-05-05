@@ -47,3 +47,10 @@ Smart Task Distributor — это WinForms-приложение (C#/.NET Framewo
 Если Visual Studio пишет, что не найден `bin\Debug\net48\SmartTaskDistributor.exe`, выполните **Rebuild Solution**: путь вывода уже настроен на `bin\Debug\net48\`.
 
 Если ошибка запуска сохраняется: в Solution Explorer нажмите правой кнопкой по `SmartTaskDistributor` → **Set as Startup Project**, затем **Clean Solution** и **Rebuild Solution**.
+
+
+## Новая функция: Составление расписания задач
+- Выберите время старта дня (по умолчанию 09:00).
+- Нажмите **Составить план**.
+- Справа появится расписание вида: `HH:mm - HH:mm | Название задачи`.
+- В конце списка показывается время завершения всего плана дня.

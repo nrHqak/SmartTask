@@ -13,6 +13,8 @@ namespace SmartTaskDistributor
         private readonly NumericUpDown _numDifficulty = new NumericUpDown();
         private readonly ComboBox _cmbPriority = new ComboBox();
         private readonly ListBox _lstTasks = new ListBox();
+        private readonly ListBox _lstSchedule = new ListBox();
+        private readonly DateTimePicker _timeStart = new DateTimePicker();
         private readonly Label _lblSummary = new Label();
 
         public MainForm()
@@ -23,7 +25,7 @@ namespace SmartTaskDistributor
         private void InitializeUi()
         {
             Text = "Smart Task Distributor";
-            Size = new Size(900, 620);
+            Size = new Size(1100, 700);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -63,14 +65,44 @@ namespace SmartTaskDistributor
             RoundedButton btnAdd = CreateButton("Добавить", 765, 90, OnAddClick, Color.FromArgb(76, 175, 80));
             RoundedButton btnRemove = CreateButton("Удалить", 25, 145, OnRemoveClick, Color.FromArgb(0, 194, 255));
             RoundedButton btnOptimize = CreateButton("Оптимизировать", 170, 145, OnOptimizeClick, Color.FromArgb(76, 175, 80));
-            RoundedButton btnClear = CreateButton("Очистить", 360, 145, OnClearClick, Color.FromArgb(225, 87, 89));
+            RoundedButton btnPlan = CreateButton("Составить план", 315, 145, OnBuildPlanClick, Color.FromArgb(76, 175, 80));
+            RoundedButton btnClear = CreateButton("Очистить", 490, 145, OnClearClick, Color.FromArgb(225, 87, 89));
 
-            _lstTasks.SetBounds(25, 205, 835, 320);
+            Label startLabel = new Label();
+            startLabel.Text = "Начало дня:";
+            startLabel.ForeColor = Color.Gainsboro;
+            startLabel.Location = new Point(670, 152);
+            startLabel.AutoSize = true;
+
+            _timeStart.Format = DateTimePickerFormat.Custom;
+            _timeStart.CustomFormat = "HH:mm";
+            _timeStart.ShowUpDown = true;
+            _timeStart.Value = DateTime.Today.AddHours(9);
+            _timeStart.SetBounds(760, 145, 100, 36);
+
+            Label tasksLabel = new Label();
+            tasksLabel.Text = "Список задач";
+            tasksLabel.ForeColor = Color.White;
+            tasksLabel.Location = new Point(25, 190);
+            tasksLabel.AutoSize = true;
+
+            _lstTasks.SetBounds(25, 215, 500, 400);
             _lstTasks.BackColor = Color.FromArgb(35, 35, 50);
             _lstTasks.ForeColor = Color.White;
             _lstTasks.BorderStyle = BorderStyle.None;
 
-            _lblSummary.SetBounds(25, 540, 835, 30);
+            Label scheduleLabel = new Label();
+            scheduleLabel.Text = "Расписание";
+            scheduleLabel.ForeColor = Color.White;
+            scheduleLabel.Location = new Point(545, 190);
+            scheduleLabel.AutoSize = true;
+
+            _lstSchedule.SetBounds(545, 215, 520, 400);
+            _lstSchedule.BackColor = Color.FromArgb(35, 35, 50);
+            _lstSchedule.ForeColor = Color.White;
+            _lstSchedule.BorderStyle = BorderStyle.None;
+
+            _lblSummary.SetBounds(25, 630, 1040, 30);
             _lblSummary.ForeColor = Color.FromArgb(200, 200, 220);
             _lblSummary.Text = "Задач: 0 | Общее время: 0 мин | Загруженность: Низкая";
 
@@ -83,8 +115,14 @@ namespace SmartTaskDistributor
             Controls.Add(btnAdd);
             Controls.Add(btnRemove);
             Controls.Add(btnOptimize);
+            Controls.Add(btnPlan);
             Controls.Add(btnClear);
+            Controls.Add(startLabel);
+            Controls.Add(_timeStart);
+            Controls.Add(tasksLabel);
             Controls.Add(_lstTasks);
+            Controls.Add(scheduleLabel);
+            Controls.Add(_lstSchedule);
             Controls.Add(_lblSummary);
         }
 
@@ -95,7 +133,7 @@ namespace SmartTaskDistributor
             button.NormalBackColor = color;
             button.HoverBackColor = ControlPaint.Light(color, .2f);
             button.BackColor = color;
-            button.SetBounds(x, y, 130, 40);
+            button.SetBounds(x, y, 160, 40);
             button.Click += onClick;
             return button;
         }
@@ -150,9 +188,41 @@ namespace SmartTaskDistributor
             RefreshTaskList();
         }
 
+        private void OnBuildPlanClick(object sender, EventArgs e)
+        {
+            if (_taskManager.Tasks.Count == 0)
+            {
+                MessageBox.Show("Добавьте хотя бы одну задачу для составления плана.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            _taskManager.SortTasks();
+            BuildSchedule();
+            RefreshTaskList();
+        }
+
+        private void BuildSchedule()
+        {
+            _lstSchedule.Items.Clear();
+            DateTime current = DateTime.Today.AddHours(_timeStart.Value.Hour).AddMinutes(_timeStart.Value.Minute);
+
+            foreach (TaskItem task in _taskManager.Tasks)
+            {
+                DateTime start = current;
+                DateTime end = start.AddMinutes(task.Duration);
+                string line = start.ToString("HH:mm") + " - " + end.ToString("HH:mm") + " | " + task.Name;
+                _lstSchedule.Items.Add(line);
+                current = end;
+            }
+
+            _lstSchedule.Items.Add("---------------------------");
+            _lstSchedule.Items.Add("План завершится в: " + current.ToString("HH:mm"));
+        }
+
         private void OnClearClick(object sender, EventArgs e)
         {
             _taskManager.ClearTasks();
+            _lstSchedule.Items.Clear();
             RefreshTaskList();
         }
 
