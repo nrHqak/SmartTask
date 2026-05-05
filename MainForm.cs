@@ -62,23 +62,23 @@ namespace SmartTaskDistributor
             _cmbPriority.Items.AddRange(new object[] { "Низкий", "Средний", "Высокий" });
             _cmbPriority.SelectedIndex = 1;
 
-            RoundedButton btnAdd = CreateButton("Добавить", 765, 90, OnAddClick, Color.FromArgb(76, 175, 80));
-            RoundedButton btnRemove = CreateButton("Удалить", 25, 145, OnRemoveClick, Color.FromArgb(0, 194, 255));
-            RoundedButton btnOptimize = CreateButton("Оптимизировать", 170, 145, OnOptimizeClick, Color.FromArgb(76, 175, 80));
-            RoundedButton btnPlan = CreateButton("Составить план", 315, 145, OnBuildPlanClick, Color.FromArgb(76, 175, 80));
-            RoundedButton btnClear = CreateButton("Очистить", 490, 145, OnClearClick, Color.FromArgb(225, 87, 89));
+            RoundedButton btnAdd = CreateButton("Добавить", 25, 145, OnAddClick, Color.FromArgb(76, 175, 80));
+            RoundedButton btnRemove = CreateButton("Удалить", 200, 145, OnRemoveClick, Color.FromArgb(0, 194, 255));
+            RoundedButton btnOptimize = CreateButton("Оптимизировать", 375, 145, OnOptimizeClick, Color.FromArgb(76, 175, 80));
+            RoundedButton btnPlan = CreateButton("Составить план", 550, 145, OnBuildPlanClick, Color.FromArgb(76, 175, 80));
+            RoundedButton btnClear = CreateButton("Очистить", 725, 145, OnClearClick, Color.FromArgb(225, 87, 89));
 
             Label startLabel = new Label();
             startLabel.Text = "Начало дня:";
             startLabel.ForeColor = Color.Gainsboro;
-            startLabel.Location = new Point(670, 152);
+            startLabel.Location = new Point(900, 152);
             startLabel.AutoSize = true;
 
             _timeStart.Format = DateTimePickerFormat.Custom;
             _timeStart.CustomFormat = "HH:mm";
             _timeStart.ShowUpDown = true;
             _timeStart.Value = DateTime.Today.AddHours(9);
-            _timeStart.SetBounds(760, 145, 100, 36);
+            _timeStart.SetBounds(985, 145, 80, 36);
 
             Label tasksLabel = new Label();
             tasksLabel.Text = "Список задач";
